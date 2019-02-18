@@ -11,6 +11,7 @@ contract myToken{
         totalSupply = _initialSupply;
     }
     
+    event Transfer(address fromAddress, address toAddress, uint256 amount);
     //function transfer
         //exception if account doesn't have enough
         //return boolean
@@ -20,7 +21,7 @@ contract myToken{
         require(balanceOf[msg.sender] >= _value);
         balanceOf[msg.sender] -= _value;
         balanceOf[_toAddress] += _value;
-        
+        Transfer(msg.sender, _toAddress, _value);
         return true;
     } 
 }
