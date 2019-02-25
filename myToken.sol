@@ -8,6 +8,7 @@ contract myToken{
     string public standard = "Dapp myToken v1";
     
     mapping(address => uint256) public balanceOf;
+    mapping(address=>mapping(address=>uint256)) public allowance;
     
    function myToken(uint256 _initialSupply) public {
         balanceOf[msg.sender] = _initialSupply;
@@ -28,7 +29,7 @@ contract myToken{
         return true;
     }
     
-    event Approve(address indexOwner, address indexedSpender, uint256 amount);    
+    event Approval(address indexOwner, address indexedSpender, uint256 amount);    
     //delegated transfer
         //function approve 
             // _ spender = the one sending on the other persons behalf
@@ -36,8 +37,10 @@ contract myToken{
         //function handle delegated transfer
         //approval event
     
-    function approve (address _spender, uint256 _value) public returns (bool success){
-        
+    function approval (address _spender, uint256 _value) public returns (bool success){
+        allowance[msg.sender][_spender]=_value;
+        Approval(msg.sender,_spender,_value);
+        return true;
         }
     
  
