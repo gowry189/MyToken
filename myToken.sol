@@ -16,10 +16,10 @@ contract myToken{
     }
     
     event Transfer(address fromAddress, address toAddress, uint256 amount);
+    //transfer event
     //function transfer
         //exception if account doesn't have enough
         //return boolean
-    //transfer event
 
     function transfer (address _toAddress, uint256 _value) public returns(bool success){
         require(balanceOf[msg.sender] >= _value);
@@ -29,13 +29,12 @@ contract myToken{
         return true;
     }
     
-    event Approval(address indexOwner, address indexedSpender, uint256 amount);    
+    event Approval(address indexOwner, address indexedSpender, uint256 amount);   
+     //approval event
     //delegated transfer
         //function approve 
             // _ spender = the one sending on the other persons behalf
-        //function transfer fromAddress
-        //function handle delegated transfer
-        //approval event
+        //function transferFrom to handle delegated transfer
     
     function approval (address _spender, uint256 _value) public returns (bool success){
         allowance[msg.sender][_spender]=_value;
@@ -43,5 +42,14 @@ contract myToken{
         return true;
         }
     
- 
+    function transferFrom(address fromAddress, address toAddress, uint256 _value) public returns(bool success){
+        require (_value <= balanceOf[fromAddress]);
+        require(_value <= allowance[fromAddress][msg.sender]);
+        balanceOf[fromAddress] -= _value;
+        balanceOf[toAddress] += _value;
+        allowance[fromAddress][msg.sender] -= _value;
+        Transfer(fromAddress,toAddress,_value);
+        return true;
+        
+    }
 }
