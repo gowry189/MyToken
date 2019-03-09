@@ -18,9 +18,9 @@ contract DappTokenSale{
         //require that the amount that we are buying for is equal to tokenprice
         require(msg.value == mul(_noOfTokens,tokenPrice));
         //require that there are enough tokens in the contract
-        
-        //require that the transfer is succesaful
-        
+        require(tokenContract.balanceOf(this) >= _noOfTokens);
+        //require that the transfer is successful
+        require(tokenContract.transfer(msg.sender,_noOf));
         //keep track of no of tokens sold
         tokenSold += _noOfTokens;
         //trigger sell event
