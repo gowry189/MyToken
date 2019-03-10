@@ -1,5 +1,5 @@
 pragma solidity ^0.4.17;
-import "myToken.sol";
+import "./myToken.sol";
 contract DappTokenSale{
     address admin;
     myToken public tokenContract;
@@ -20,10 +20,15 @@ contract DappTokenSale{
         //require that there are enough tokens in the contract
         require(tokenContract.balanceOf(this) >= _noOfTokens);
         //require that the transfer is successful
-        require(tokenContract.transfer(msg.sender,_noOf));
+        require(tokenContract.transfer(msg.sender,_noOfTokens));
         //keep track of no of tokens sold
         tokenSold += _noOfTokens;
         //trigger sell event
         Sell(msg.sender,_noOfTokens);
+    }
+    
+    function endSale()public{
+        require(msg.sender==admin);
+        tokenContract.transfer(admin,tokenContract.balanceOf(this));
     }
 }
