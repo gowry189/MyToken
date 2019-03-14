@@ -1,4 +1,3 @@
- 
 pragma solidity ^0.4.17;
 contract Sponsorship{
     uint256 public workshopCost;
@@ -10,5 +9,26 @@ contract Sponsorship{
         owner = msg.sender;
     }
     /*sponsor a new workshop by sending ether from his wallet 
-    when he call the function.*/ 
+    when he call this function.*/ 
+    function addSponsor()public payable{
+        require(workshopCost==msg.value);
+        sponsorsContribution[msg.sender]++;
+        sponsorsList.push(msg.sender);
+    }
+    function getSponsorsContribution(address _sponsor)public view returns(uint c){
+        c=sponsorsContribution[_sponsor];
+        return c;
+    }
+    function getSponsorsContributionPercent(address _sponsor) public view returns(uint p){
+        uint256 totalContributions=0;
+        p=0;
+        for(uint256 i=0; i<sponsorsList.length;i++){
+            totalContributions=sponsorsContribution[sponsorsList[i]];
+        }
+        if(totalContributions==0){
+            return p;
+        }
+        p=100*(sponsorsContribution[_sponsor]/totalContributions);
+        return p;
+    }
 }
