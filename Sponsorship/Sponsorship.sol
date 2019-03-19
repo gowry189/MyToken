@@ -31,4 +31,11 @@ contract Sponsorship{
         p=100*(sponsorsContribution[_sponsor]/totalContributions);
         return p;
     }
+    /*function to transfer required amount from contract account 
+    to the owner address*/
+    function getEther(uint256 _amt_to_be_withdrawn) public{
+     require(msg.sender == owner);
+     require(address(this).balance >= _amt_to_be_withdrawn);
+     msg.sender.transfer(_amt_to_be_withdrawn);
+    }
 }
