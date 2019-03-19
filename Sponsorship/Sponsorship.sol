@@ -19,6 +19,7 @@ contract Sponsorship{
         c=sponsorsContribution[_sponsor];
         return c;
     }
+     /*compute percentage of a particular sponsors contribution percentage*/
     function getSponsorsContributionPercent(address _sponsor) public view returns(uint p){
         uint256 totalContributions=0;
         p=0;
