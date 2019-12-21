@@ -1,4 +1,5 @@
 pragma solidity ^0.4.17;
+
 contract Sponsorship{
     uint256 public workshopCost;
     mapping (address => uint256)public sponsorsContribution;
